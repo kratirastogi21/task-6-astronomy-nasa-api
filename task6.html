@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astronomy webapp</title>
+    <style>
+    body{
+      background-color:grey ;
+    }
+    header{
+          text-align:center;
+          font-family:cursive;
+          color:rgb(63, 62, 61);
+          background-color:cornsilk;
+      }
+      
+.centered {
+   background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); 
+  color: #f1f1f1;
+  width: 50%; 
+  padding: 20px; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+}
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  .centered{
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    
+  }
+  .warning {
+    display: none;
+  }
+}
+
+.container {
+  position: relative;
+}
+#title{
+  font-style: italic;
+  color:beige;
+  font-size:20px;
+}
+#explain{
+  font-family:cursive;
+  color:burlywood;
+}
+button{
+  border: 3px solid rgb(63, 62, 61);
+  background-color: salmon;
+  padding:2px;
+  border-radius: 3px;
+  
+}
+#date{
+  font-family: serif;
+ font-style: bold;
+ background: seagreen;
+ text-align:center;
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ASTRONOMY PICTURE OF THE DAY</h1>
+
+    </header>
+    <div class="container">
+    <img src="" id="bgimage" style="width:100%"></image>
+   
+        <div class="centered">
+            <p id="title" style="text-align: center;"><h1></h1></p>
+            <h4 id="ale">A little explanation </h4>
+            <p id="explain"></p>
+        </div>
+    </div>
+  <p id="date"></p>
+
+    
+    <center>
+        <button><a id="download" href="#">Download HD Image</a></button>
+    </center>
+    <script>
+        async function getImg() {
+        let nasa_url =
+            "https://api.nasa.gov/planetary/apod?api_key=u90uTfjcC43VRwLko5NRT1hEX3m2AhqTKSOKeZT0";
+          const response = await fetch(nasa_url);
+          const data = await response.json();
+          console.log(data);
+  
+          document.getElementById("date").textContent = "Date: " + data.date;
+          document.getElementById("explain").textContent = data.explanation;
+          document.getElementById("title").textContent = data.title;
+          document.getElementById('bgimage').src = data.url;
+          document.getElementById('download').href = data.hdurl;
+        }
+  
+        getImg();
+      </script>
+  
+    
+</body>
+</html>
